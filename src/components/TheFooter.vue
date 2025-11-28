@@ -1,9 +1,8 @@
 <template>
   <div id="app">
-    <main class="content">
-    </main>
+   
 
-    <footer class="footer">
+    <footer class="footer mt-5">
       <div class="footer-content">
         © 2020 Copyright:
         <a href="https://mdbootstrap.com/">MDBootstrap.com</a>
@@ -17,7 +16,7 @@
 #app {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  /* min-height: 100vh; */
 }
 
 .content {

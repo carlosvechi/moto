@@ -10,10 +10,10 @@
       <!-- Menu central -->
       <ul class="navbar-nav mx-auto ranchers-regular">
         <li class="nav-item">
-          <a class="nav-link" href="#">Home</a>
+          <router-link class="nav-link" to="/">Home</router-link>
         </li>
         <li class="nav-item mx-5">
-          <a class="nav-link" href="#">Produtos</a>
+          <router-link class="nav-link" to="/produtos">Produtos</router-link>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Contato</a>
@@ -61,10 +61,9 @@
   color: #ffd1d1;
 }
 
-/* Espaço invisível igual ao tamanho da logo */
 .logo-space {
-  width: 90px;  /* mesmo tamanho horizontal da logo */
-  height: 85px; /* mesma altura só para manter simetria */
+  width: 90px;
+  height: 85px;
 }
 
 @media (max-width: 500px) {
@@ -78,14 +77,12 @@
     font-size: 0.9rem;
   }
 }
-</style>
 
-<style>
-  .ranchers-regular {
+/* SUA FONTE AQUI */
+.ranchers-regular {
   font-family: "Ranchers", sans-serif;
   font-weight: 650;
   font-style: normal;
-
 }
 </style>
 
