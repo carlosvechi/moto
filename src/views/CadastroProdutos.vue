@@ -14,7 +14,6 @@
             <!-- form -->
             <div class="col-md-6">
 
-                
                 <h3 class="fw-bold mb-4">Dados da Motocicleta</h3>
 
                 <form @submit.prevent="confirmSubmit">
@@ -55,7 +54,7 @@
                     </button>
                 </form>
 
-                <!-- abremodal -->
+                <!-- modal -->
                 <div class="modal fade" id="confirmModal" tabindex="-1">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
@@ -75,8 +74,8 @@
                                 </button>
 
                                 <!-- botao confirma -->
-                                <button type="button" class="btn btn-danger fw-bold" @click="submitForm"
-                                    data-bs-dismiss="modal">
+                                <button type="button" class="btn btn-danger fw-bold"
+                                    @click="submitForm" data-bs-dismiss="modal">
                                     Confirmar
                                 </button>
                             </div>
@@ -88,11 +87,37 @@
             </div>
 
         </div>
+
+        <!-- TOAST SUCESSO -->
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div id="toastSuccess" class="toast align-items-center text-bg-success border-0" role="alert">
+                <div class="d-flex">
+                    <div class="toast-body fw-bold">
+                        Moto cadastrada com sucesso!
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- TOAST ERRO -->
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div id="toastError" class="toast align-items-center text-bg-danger border-0" role="alert">
+                <div class="d-flex">
+                    <div class="toast-body fw-bold">
+                        Ocorreu um erro ao cadastrar a moto!
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+                </div>
+            </div>
+        </div>
+
     </div>
 </template>
 
 <script>
-import { Modal } from "bootstrap";
+import { Modal, Toast } from "bootstrap";
+import motosService from "@/services/motosService";
 
 export default {
     data() {
@@ -109,36 +134,60 @@ export default {
     },
 
     methods: {
-  openModal() {
-    // pega o formulário
-    const form = this.$el.querySelector("form");
+        openModal() {
+            const form = this.$el.querySelector("form");
 
-    // valida usando a API nativa do HTML
-    if (!form.checkValidity()) {
-      form.reportValidity(); // mostra mensagens de erro do navegador
-      return; // NÃO abre o modal
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            const modal = new Modal(document.getElementById("confirmModal"));
+            modal.show();
+        },
+
+        async submitForm() {
+            try {
+                const payload = {
+                    modelo: this.form.modelo,
+                    marca: this.form.marca,
+                    ano: this.form.ano,
+                    cor: this.form.cor,
+                    placa: this.form.placa,
+                    km_atual: this.form.km
+                };
+
+                await motosService.criar(payload);
+
+                this.showToast("toastSuccess");
+
+                this.form = {
+                    modelo: "",
+                    marca: "",
+                    ano: "",
+                    cor: "",
+                    placa: "",
+                    km: ""
+                };
+
+            } catch (erro) {
+                console.error("Erro ao cadastrar moto:", erro);
+                this.showToast("toastError");
+            }
+        },
+
+        showToast(id) {
+            const toastEl = document.getElementById(id);
+            const toast = new Toast(toastEl);
+            toast.show();
+        }
     }
-
-    // abre o modal manualmente
-    const modal = new Modal(document.getElementById('confirmModal'));
-
-    modal.show();
-  },
-
-  submitForm() {
-    console.log("FORMULÁRIO ENVIADO:");
-    console.table(this.form);
-  }
-}
-
 };
 </script>
-
 
 <style scoped>
 .moto-img {
     width: 100%;
     max-width: 450px;
-    /* aumenta o tamanho máximo */
 }
 </style>

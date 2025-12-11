@@ -13,10 +13,11 @@
           <router-link class="nav-link" to="/">Home</router-link>
         </li>
         <li class="nav-item mx-5">
-          <router-link class="nav-link" to="/produtos">Produtos</router-link>
+          <router-link class="nav-link" to="/produtos">Cadastrar Moto</router-link>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Contato</a>
+          <router-link class="nav-link" to="/motos">Motos</router-link>
+
         </li>
       </ul>
 
