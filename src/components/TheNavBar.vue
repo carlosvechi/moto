@@ -51,29 +51,34 @@
 
 .navbar-nav {
   flex-direction: row;
-  margin-left: 320px !important; 
+  margin-left: 0 !important; /* REMOVE a margem fixa que quebrava tudo */
 }
 
-.nav-link {
-  color: #fff;
-  transition: color 0.3s ease;
-}
-.nav-link:hover {
-  color: #ffd1d1;
-}
-
-.logo-space {
-  width: 90px;
-  height: 85px;
+/* Centralizar no desktop */
+@media (min-width: 501px) {
+  .navbar-nav {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }
 
+/* Mobile: espaço reduzido e tudo visível */
 @media (max-width: 500px) {
   .logo {
     height: 35px;
   }
+
   .logo-space {
     width: 35px;
   }
+
+  .navbar-nav {
+    justify-content: center;
+    gap: 10px;       /* Afasta um pouco os itens */
+    width: 100%;
+  }
+
   .nav-link {
     font-size: 0.9rem;
   }

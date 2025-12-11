@@ -10,6 +10,7 @@
             v-model="filtro"
         />
 
+        <div class="table-responsive-custom">
         <table class="table table-striped table-bordered">
             <thead class="table-dark">
                 <tr>
@@ -52,6 +53,7 @@
                 </tr>
             </tbody>
         </table>
+    </div>
 
         <!-- ============================
             MODAL DE EDIÇÃO
@@ -247,5 +249,12 @@ export default {
 table th,
 table td {
     vertical-align: middle;
+}
+.table-responsive-custom {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+.table-responsive-custom table {
+    min-width: 800px;
 }
 </style>
