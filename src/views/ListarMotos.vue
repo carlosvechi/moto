@@ -45,7 +45,7 @@
 
                         <button
                             class="btn btn-danger btn-sm"
-                            @click="remover(moto.id)"
+                            @click="abrirModalExclusao(moto)"
                         >
                             Excluir
                         </button>
@@ -115,6 +115,34 @@
             </div>
         </div>
 
+        <!-- ============================
+            MODAL DE CONFIRMAÇÃO DE EXCLUSÃO
+        ============================ -->
+        <div class="modal fade" id="modalExcluir" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+
+                    <div class="modal-header bg-danger text-white">
+                        <h5 class="modal-title fw-bold">Confirmar Exclusão</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        Tem certeza que deseja excluir a moto:
+                        <strong>{{ motoSelecionada?.modelo }}</strong> (Placa: {{ motoSelecionada?.placa }})?
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button class="btn btn-danger" @click="confirmarRemocao">
+                            Excluir
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
         <!-- TOAST SUCESSO -->
         <div class="toast-container position-fixed bottom-0 end-0 p-3">
             <div id="toastSuccess" class="toast align-items-center text-bg-success border-0" role="alert">
@@ -142,119 +170,132 @@
     </div>
 </template>
 
+
 <script>
-import motosService from "@/services/motosService";
-import { Modal, Toast } from "bootstrap";
-
-export default {
-    data() {
-        return {
-            motos: [],
-
-            filtro: "", // campo de busca
-
-            form: {
-                id: null,
-                modelo: "",
-                marca: "",
-                ano: "",
-                cor: "",
-                placa: "",
-                km_atual: "",
+    import motosService from "@/services/motosService";
+    import { Modal, Toast } from "bootstrap";
+    
+    export default {
+        data() {
+            return {
+                motos: [],
+                filtro: "",
+    
+                form: {
+                    id: null,
+                    modelo: "",
+                    marca: "",
+                    ano: "",
+                    cor: "",
+                    placa: "",
+                    km_atual: "",
+                },
+    
+                motoSelecionada: null, // MOTO QUE SERÁ EXCLUÍDA
+    
+                modalEditar: null,
+                modalExcluir: null,
+            };
+        },
+    
+        async created() {
+            await this.buscarMotos();
+        },
+    
+        computed: {
+            motosFiltradas() {
+                const texto = this.filtro.toLowerCase().trim();
+    
+                return this.motos.filter(moto => {
+                    const modelo = (moto.modelo || "").toLowerCase();
+                    const placa  = (moto.placa  || "").toLowerCase();
+    
+                    return modelo.includes(texto) || placa.includes(texto);
+                });
+            }
+        },
+    
+        methods: {
+            async buscarMotos() {
+                try {
+                    const resposta = await motosService.listar();
+                    this.motos = resposta.data;
+                } catch (e) {
+                    console.error("Erro ao listar motos:", e);
+                    this.showToast("toastError");
+                }
             },
-
-            modalEditar: null,
-        };
-    },
-
-    async created() {
-        await this.buscarMotos();
-    },
-
-    computed: {
-    motosFiltradas() {
-        const texto = this.filtro.toLowerCase().trim();
-
-        return this.motos.filter(moto => {
-            const modelo = (moto.modelo || "").toString().toLowerCase();
-            const placa  = (moto.placa  || "").toString().toLowerCase();
-
-            return modelo.includes(texto) || placa.includes(texto);
-        });
-    }
-},
-
-
-    methods: {
-        async buscarMotos() {
-            try {
-                const resposta = await motosService.listar();
-                this.motos = resposta.data;
-            } catch (e) {
-                console.error("Erro ao listar motos:", e);
-                this.showToast("toastError");
+    
+            abrirModalEdicao(moto) {
+                this.form = { ...moto };
+    
+                if (!this.modalEditar) {
+                    this.modalEditar = new Modal(document.getElementById("modalEditar"));
+                }
+    
+                this.modalEditar.show();
+            },
+    
+            async salvarEdicao() {
+                try {
+                    await motosService.atualizar(this.form.id, this.form);
+    
+                    this.showToast("toastSuccess");
+                    this.buscarMotos();
+    
+                } catch (e) {
+                    console.error("Erro ao atualizar:", e);
+                    this.showToast("toastError");
+                }
+            },
+    
+            abrirModalExclusao(moto) {
+                this.motoSelecionada = moto;
+    
+                if (!this.modalExcluir) {
+                    this.modalExcluir = new Modal(document.getElementById("modalExcluir"));
+                }
+    
+                this.modalExcluir.show();
+            },
+    
+            async confirmarRemocao() {
+                try {
+                    await motosService.deletar(this.motoSelecionada.id);
+    
+                    this.showToast("toastSuccess");
+                    this.buscarMotos();
+    
+                } catch (e) {
+                    console.error("Erro ao excluir:", e);
+                    this.showToast("toastError");
+                }
+    
+                this.modalExcluir.hide();
+            },
+    
+            showToast(id) {
+                const el = document.getElementById(id);
+                const toast = new Toast(el);
+                toast.show();
             }
         },
-
-        abrirModalEdicao(moto) {
-            this.form = { ...moto };
-
-            if (!this.modalEditar) {
-                this.modalEditar = new Modal(document.getElementById("modalEditar"));
-            }
-
-            this.modalEditar.show();
-        },
-
-        async salvarEdicao() {
-            try {
-                await motosService.atualizar(this.form.id, this.form);
-
-                this.showToast("toastSuccess");
-                this.buscarMotos();
-
-            } catch (e) {
-                console.error("Erro ao atualizar:", e);
-                this.showToast("toastError");
-            }
-        },
-
-        async remover(id) {
-            if (!confirm("Tem certeza que deseja excluir essa moto?")) {
-                return;
-            }
-
-            try {
-                await motosService.deletar(id);
-
-                this.showToast("toastSuccess");
-                this.buscarMotos();
-
-            } catch (e) {
-                console.error("Erro ao excluir:", e);
-                this.showToast("toastError");
-            }
-        },
-
-        showToast(id) {
-            const el = document.getElementById(id);
-            const toast = new Toast(el);
-            toast.show();
+    };
+    </script>
+    
+    <style scoped>
+        table th,
+        table td {
+            vertical-align: middle;
         }
-    },
-};
-</script>
-
-<style scoped>
-table th,
-table td {
-    vertical-align: middle;
-}
-.table-responsive-custom {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-}
-.table-responsive-custom table {
-    min-width: 800px;
-}
-</style>
+        
+        .table-responsive-custom {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .table-responsive-custom table {
+            min-width: 800px;
+        }
+        </style>
+        

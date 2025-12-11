@@ -4,8 +4,8 @@
 
     <footer class="footer mt-5">
       <div class="footer-content">
-        © 2020 Copyright:
-        <a href="https://mdbootstrap.com/">MDBootstrap.com</a>
+        © 2026 UniSenai Copyright:
+        <a href="https://mdbootstrap.com/"></a>
       </div>
     </footer>
   </div>

@@ -30,14 +30,18 @@
 
 
 <style scoped>
+/*navbar style */
+
 .footer {
-  background-color: #f30000;  
+  background-color: #f30000;
 }
+
 .footer.navbar {
   padding-top: 0 !important;
   padding-bottom: 0 !important;
 }
 
+/* LOGO */
 .logo {
   height: 85px;
   width: auto;
@@ -48,13 +52,48 @@
 .logo:hover {
   transform: scale(1.1);
 }
-
-.navbar-nav {
-  flex-direction: row;
-  margin-left: 0 !important; /* REMOVE a margem fixa que quebrava tudo */
+.nav-link {
+  position: relative;
+  color: #ffffff !important;
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+  opacity: 1 !important;
+  padding: 12px 18px !important;
+  transition: all 0.25s ease-in-out;
+  text-shadow: 0 0 3px rgba(0,0,0,0.35);
 }
 
-/* Centralizar no desktop */
+/* Efeito de hover */
+.nav-link:hover {
+  color: #ffffff !important;
+  transform: translateY(-2px);
+  text-shadow: 0 0 6px rgba(0,0,0,0.55);
+}
+
+/* Linha animada abaixo do texto */
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 6px;
+  width: 0%;
+  height: 2px;
+  background-color: #ffffff;
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+  border-radius: 4px;
+}
+
+.nav-link:hover::after {
+  width: 60%;
+}
+
+/* Navbar centralizada no desktop */
+.navbar-nav {
+  flex-direction: row;
+  margin-left: 0 !important;
+}
+
 @media (min-width: 501px) {
   .navbar-nav {
     position: absolute;
@@ -63,7 +102,7 @@
   }
 }
 
-/* Mobile: espaço reduzido e tudo visível */
+/*mobile */
 @media (max-width: 500px) {
   .logo {
     height: 35px;
@@ -75,20 +114,22 @@
 
   .navbar-nav {
     justify-content: center;
-    gap: 10px;       /* Afasta um pouco os itens */
+    gap: 10px;
     width: 100%;
   }
 
   .nav-link {
     font-size: 0.9rem;
+    padding: 8px 10px !important;
   }
 }
 
-/* SUA FONTE AQUI */
+/*fonte personalizada */
 .ranchers-regular {
   font-family: "Ranchers", sans-serif;
   font-weight: 650;
-  font-style: normal;
 }
-</style>
+
+  </style>
+  
 
