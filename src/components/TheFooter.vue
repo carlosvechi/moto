@@ -1,72 +1,55 @@
 <template>
-  <div id="app">
-   
+  <footer class="footer mt-5">
+    <div class="container">
+      <div class="row align-items-center text-center text-md-start">
 
-    <footer class="footer mt-5">
-      <div class="footer-content">
-        © 2026 UniSenai Copyright:
-        <a href="https://mdbootstrap.com/"></a>
+        <!-- Identidade -->
+        <div class="col-md-4 mb-3 mb-md-0">
+          <div class="fw-semibold">
+            Sistema de Gestão de Serviços Técnicos
+          </div>
+          <div class="small opacity-75">
+            Projeto acadêmico – UniSENAI
+          </div>
+        </div>
+
+        <!-- Links -->
+        <div class="col-md-4 mb-3 mb-md-0 text-center">
+          <a href="#" class="footer-link">Início</a>
+          <span class="mx-2">•</span>
+          <a href="#" class="footer-link">Documentação</a>
+          <span class="mx-2">•</span>
+          <a href="#" class="footer-link">GitHub</a>
+        </div>
+
+        <!-- Direitos -->
+        <div class="col-md-4 text-md-end">
+          <span class="small opacity-75">
+            © 2026 • Carlos Vechi
+          </span>
+        </div>
+
       </div>
-    </footer>
-  </div>
+    </div>
+  </footer>
 </template>
 
 <style scoped>
-/* Contêiner principal */
-#app {
-  display: flex;
-  flex-direction: column;
-  /* min-height: 100vh; */
-}
-
-.content {
-  flex: 1;
-  padding: 1rem;
-}
-
-/* Footer estilizado */
 .footer {
-  background-color: #f30000;      
-  color: #fff;
-  text-align: center;
-  padding: 1rem;
-  box-shadow: 0 -4px 6px rgba(0,0,0,0.2); /* Sombra leve no topo */
-  transition: background-color 0.3s ease;
+  background-color: #b00000;
+  color: #ffffff;
+  padding: 1rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
 }
 
-.footer:hover {
-  background-color: #cc0000;      /* Escurece no hover */
-}
-.footer-content {
-  font-size: 1rem;
-  padding: 1rem;
-  transition: transform 0.2s ease;
+.footer-link {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: opacity 0.2s ease;
 }
 
-.footer-content a {
-  color: #fff;
-  text-decoration: underline;
-  font-weight: 500;
-  transition: color 0.3s ease, transform 0.2s ease;
-}
-
-.footer-content a:hover {
-  color: #ffd1d1;        
-  transform: scale(1.05); /* Leve aumento */
-}
-
-/* Responsivo */
-@media (max-width: 768px) {
-  .footer-content {
-    font-size: 0.9rem;
-    padding: 0.8rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .footer-content {
-    font-size: 0.8rem;
-    padding: 0.6rem;
-  }
+.footer-link:hover {
+  opacity: 0.75;
 }
 </style>

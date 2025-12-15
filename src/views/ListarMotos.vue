@@ -1,5 +1,5 @@
 <template>
-    <div class="container my-5">
+    <div class="container my-5 teste">
         <h2 class="fw-bold mb-4">Listagem de Motocicletas</h2>
 
         <!-- CAMPO DE BUSCA -->
@@ -284,6 +284,10 @@
     </script>
     
     <style scoped>
+        /* .teste{
+            min-height: 100%;
+        } */
+
         table th,
         table td {
             vertical-align: middle;
