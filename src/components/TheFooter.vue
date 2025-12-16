@@ -17,9 +17,9 @@
         <div class="col-md-4 mb-3 mb-md-0 text-center">
           <a href="#" class="footer-link">Início</a>
           <span class="mx-2">•</span>
-          <a href="#" class="footer-link">Documentação</a>
+          <a href="https://app.clickup.com/90131927444/v/l/7-90131927444-1" class="footer-link">Clickup</a>
           <span class="mx-2">•</span>
-          <a href="#" class="footer-link">GitHub</a>
+          <a href="https://github.com/carlosvechi" class="footer-link">GitHub</a>
         </div>
 
         <!-- Direitos -->

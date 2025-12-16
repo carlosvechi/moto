@@ -1,12 +1,10 @@
+# 🖥️ Frontend – Sistema de Gestão de Motos (Emerson Cilindros)
 
+## 📌 Sobre o Frontend
 
-# 🏍️ Emerson Cilindros – Sistema de Gestão de Motos
+Este módulo corresponde ao **frontend** do sistema de gestão de motos da concessionária fictícia **Emerson Cilindros**. A aplicação é responsável pela interface com o usuário administrador, permitindo o gerenciamento completo das motos cadastradas.
 
-## 📌 Sobre o projeto
-
-Sistema web desenvolvido para uma concessionária fictícia chamada **Emerson Cilindros**, com foco no **cadastro, gerenciamento e listagem de motos**. O sistema permite que um usuário administrador realize operações completas de CRUD (Create, Read, Update, Delete), além de pesquisa de registros.
-
-Este projeto foi desenvolvido como **projeto acadêmico individual** na **UniSENAI**, com o objetivo de aplicar conceitos práticos de desenvolvimento frontend e backend, integração via API REST e persistência de dados em banco relacional.
+O frontend consome uma **API REST** desenvolvida em Node.js, realizando a comunicação por meio do **Axios**.
 
 ---
 
@@ -17,98 +15,60 @@ Este projeto foi desenvolvido como **projeto acadêmico individual** na **UniSEN
 * Exclusão de motos
 * Listagem de motos
 * Pesquisa de motos
-* Integração entre frontend e backend via API REST
+* Consumo da API REST via Axios
 
 ---
 
 ## 🛠️ Tecnologias utilizadas
 
-### Backend
-
-* Node.js
-* Express
-* MySQL
-
-### Frontend
-
 * Vue.js
 * Axios
 * Bootstrap
+* JavaScript
+* HTML5
+* CSS3
 
 ---
 
 ## 📂 Estrutura do projeto
-
-### Backend
-
-```
-backend/
- └── src/
-     ├── config/
-     │   └── database.js
-     ├── motos/
-     │   ├── controller.js
-     │   ├── repository.js
-     │   └── router.js
-     ├── app.js
-     └── server.js
-```
-
-### Frontend
 
 ```
 frontend/
  └── src/
      ├── assets/
      ├── components/
+     │   ├── TheNavBar.vue
+     │   ├── TheFooter.vue
+     │   └── TheCarrossel.vue
      ├── router/
+     │   └── index.js
      ├── services/
+     │   ├── api.js
+     │   └── motosService.js
      ├── views/
+     │   ├── CadastroProdutos.vue
+     │   ├── ListarMotos.vue
+     │   └── TheHome.vue
      ├── App.vue
      └── main.js
 ```
 
 ---
 
-## 🔌 Rotas da API
-
-```http
-GET    /motos        → Listar todas as motos
-POST   /motos        → Cadastrar nova moto
-PUT    /motos/:id    → Atualizar moto existente
-DELETE /motos/:id    → Deletar moto
-```
-
----
-
-## ▶️ Como executar o projeto
+## ▶️ Como executar o frontend
 
 ### Pré-requisitos
 
 * Node.js **v24.12.0** ou superior
-* MySQL instalado e configurado
 
----
-
-### Backend
-
-```bash
-npm install
-node src/server.js
-```
-
-O backend será iniciado e ficará responsável pela API REST.
-
----
-
-### Frontend
+### Instalação e execução
 
 ```bash
 npm install
 npm run serve
 ```
 
-O frontend ficará disponível em:
+A aplicação estará disponível em:
 
 ```
 http://localhost:8080
@@ -116,9 +76,17 @@ http://localhost:8080
 
 ---
 
-## 📌 Status do projeto
+## 🔗 Integração com o Backend
 
-✅ **Finalizado** (Projeto acadêmico)
+O frontend consome a API REST disponibilizada pelo backend, utilizando endpoints relacionados ao gerenciamento de motos.
+
+Certifique-se de que o backend esteja em execução antes de utilizar o sistema.
+
+---
+
+## 📌 Status do módulo
+
+✅ Finalizado (Projeto acadêmico)
 
 ---
 
@@ -126,9 +94,3 @@ http://localhost:8080
 
 **Carlos**
 Projeto acadêmico individual – UniSENAI
-
----
-
-> ⚠️ **Observação:** Este sistema foi desenvolvido exclusivamente para fins educacionais.
-
-
